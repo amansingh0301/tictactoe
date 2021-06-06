@@ -12,7 +12,7 @@ export default () => {
 
   const current = history[currentMove];
 
-  const winner = calculateWinner(current.board);
+  const {winner,winningSquares} = calculateWinner(current.board);
 
   const handleSquareClick = (position) => {
       if (current.board[position] || winner) {
@@ -43,7 +43,7 @@ export default () => {
     <div className="app">
       <h1>Tic Tac Toe</h1>
       <StatusMessage winner={winner} current={current}/>
-      <Board board={current.board} handleSquareClick={handleSquareClick}/>
+      <Board board={current.board} handleSquareClick={handleSquareClick} winningSquares={winningSquares}/>
       <History history={history} currentMove={currentMove} moveTo={moveTo}/>
     </div>
   )
