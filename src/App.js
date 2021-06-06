@@ -2,11 +2,10 @@ import React,{useState} from "react";
 import Board from './Components/Board';
 import { calculateWinner } from "./helpers";
 import History from './Components/History'
+import StatusMessage from './Components/StatusMessage'
 import './styles/root'
 
 export default () => {
-  // const [board,setBoard] = useState(Array(9).fill(null));
-  // const [isXNext, setIsXNext] = useState(false);
 
   const [history,setHistory] = useState([{board:Array(9).fill(null), isXNext:true}]);
   const [currentMove,setCurrentMove] = useState(0);
@@ -14,7 +13,6 @@ export default () => {
   const current = history[currentMove];
 
   const winner = calculateWinner(current.board);
-  const message = winner ? `Winner is ${winner}` : `Next player is ${current.isXNext ? 'X' : 'O'}`;
 
   const handleSquareClick = (position) => {
       if (current.board[position] || winner) {
@@ -44,7 +42,7 @@ export default () => {
   return (
     <div className="app">
       <h1>Tic Tac Toe</h1>
-      <h2>{message}</h2>
+      <StatusMessage winner={winner} current={current}/>
       <Board board={current.board} handleSquareClick={handleSquareClick}/>
       <History history={history} currentMove={currentMove} moveTo={moveTo}/>
     </div>
